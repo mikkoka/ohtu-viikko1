@@ -64,5 +64,68 @@ public class VarastoTest {
         // varastossa pitäisi olla tilaa 10 - 8 + 2 eli 4
         assertEquals(4, varasto.paljonkoMahtuu(), vertailuTarkkuus);
     }
+    
+    
+    @Test
+    public void likaaEiSaaLisata() {
+        varasto.lisaaVarastoon(varasto.getTilavuus() + 1);
+        assertEquals(varasto.getTilavuus(), varasto.getSaldo(), vertailuTarkkuus);
+    }
+    
+    @Test
+    public void negatiivistaEiSaaLisata() {
+        double testiArvo = varasto.getSaldo();
+        varasto.lisaaVarastoon(-1);
+        assertEquals(testiArvo, varasto.getSaldo(), vertailuTarkkuus);
+    }
+    
+    @Test
+    public void negatiivistaEiSaaOttaa() {
+        double testiArvo = varasto.getSaldo();
+        varasto.otaVarastosta(-1);
+        assertEquals(testiArvo, varasto.getSaldo(), vertailuTarkkuus);
+    }
+    
+    @Test
+    public void enempaaEiSaaOttaaKunOn() {
+        varasto.otaVarastosta(varasto.getTilavuus() + 1);
+        assertEquals(0, varasto.getSaldo(), vertailuTarkkuus);
+    }
+
+    @Test
+    public void toStringToimii() {
+        assertEquals("saldo = 0.0, vielä tilaa 10.0", varasto.toString());
+    }
+    
+    @Test
+    public void kostruktori1ToimiiNegatiivisellaTilavuudella() {
+        Varasto varasto2 = new Varasto(-1);
+        assertEquals(0, varasto2.getTilavuus(), vertailuTarkkuus);
+    }
+    
+    @Test
+    public void kostruktori2ToimiiNegatiivisellaTilavuudella() {
+        Varasto varasto2 = new Varasto(-1, 1);
+        assertEquals(0, varasto2.getTilavuus(), vertailuTarkkuus);
+    }
+    
+    @Test
+    public void kostruktori2ToimiiNegatiivisellaAlkusaldolla() {
+        Varasto varasto2 = new Varasto(2, -1);
+        assertEquals(0, varasto2.getSaldo(), vertailuTarkkuus);
+    }
+    
+    @Test
+    public void kostruktori2ToimiiYlisuurellaAlkusaldolla() {
+        Varasto varasto2 = new Varasto(2, 3);
+        assertEquals(2, varasto2.getSaldo(), vertailuTarkkuus);
+    }
+    
+        @Test
+    public void kostruktori2ToimiijarkevallaAlkusaldolla() {
+        Varasto varasto2 = new Varasto(2, 1);
+        assertEquals(1, varasto2.getSaldo(), vertailuTarkkuus);
+    }
+    
 
 }
