@@ -117,7 +117,7 @@ public class VarastoTest {
     
     @Test
     public void kostruktori2ToimiiYlisuurellaAlkusaldolla() {
-        Varasto varasto2 = new Varasto(2, 3);
+        Varasto varasto2 = new Varasto(2, 1);
         assertEquals(2, varasto2.getSaldo(), vertailuTarkkuus);
     }
     
